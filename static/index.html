@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+
+<title>TranscripChain!</title>
+
+<style type="text/css">
+#container {
+    width: 100%;
+}
+
+#content {
+    width: 800px;
+    margin: auto;
+    padding: 0 10px 10px 10px;
+    background: white;
+}
+
+h1 {
+    width: 100%;
+    font-family: 'Comfortaa';
+    text-align: center;
+    font-size: 40px;
+}
+
+h2 {
+    width: 100%;
+    font-family: 'Comfortaa';
+    text-align: center;
+    font-size: 30px;
+}
+
+#quickSummary {
+    font-size: 12px;
+    border: 1px solid black;
+    padding: 5px;
+    background: white;
+}
+
+body {
+    font-family: sans-serif;
+    background: #151B8D;
+}
+
+.text {
+    width: 100%;
+    padding-top: 1px;
+    margin-top: 1px;
+    padding-bottom: 1px;
+    margin-bottom: 1px;
+}
+
+.rec-url {
+    font-size: 10px;
+    width: 100%;
+    padding-top: 1px;
+    margin-top: 1px;
+    padding-bottom: 1px;
+    margin-bottom: 1px;
+}
+
+</style>
+<link href='http://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
+<script src="/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+var s = io.connect();
+s.on('allTranscriptions', function(data) {
+    for(var i = 0; i < data.length; i++) {
+        addTranscription(data[i]);
+    }
+});
+
+s.on('transcription', function(t) {
+    addTranscription(t);
+});
+
+function addTranscription(t) {
+    $('#content').append(
+        '<div class="transcription"><h3>THEN WE GOT</h3>' +
+        '<p class="text"><span class="q">&quot;</span>' + t.text + '<span class="q">&quot;</span></p>' + 
+        '<p class="rec-url"><a href="' + t.url + '">Click here to hear this recording</a></p>' +
+        '</div>'
+    );
+}
+</script>
+</head>
+<body>
+
+<div id="container">
+    <div id="content">
+            <h1>TranscripChain</h1>
+            <h2>Call 1-888-232-2698 to play (toll free!)</h2>
+
+        <div id="quickSummary">
+            <p class="p1"><span>
+                Welcome to TranscripChain!
+            </span></p>
+            <p class="p2"><span>
+                TranscripChain is a game. To play, you call 1-888-232-2698 (toll free).
+                You will hear a computer read you a transcription of what the last person
+                to call in said. Then, after the beep, you say back to the computer
+                exactly what you heard. The computer will record what you say and
+                transcribe it, and that transcription will be read to the next person
+                who calls in.
+            </span></p>
+            <p class="p2"><span>
+                This may sound complex, but it's not. See for yourself by calling
+                1-888-232-2698.
+            </span></p>
+        </div>
+        <div class="transcription">
+            <h3>We started with the text of an awesome quote from John Hammond</h3>
+            <p>
+            "We've made living biological attractions so astounding that they'll capture the imagination of the entire planet."
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
