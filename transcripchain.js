@@ -61,7 +61,7 @@ p.setup(function() {
         recording.on('transcribed', function(tranReq, tranRes) {
             var txt = tranReq.TranscriptionText;
             console.log('New transcription: ' + txt);
-            transcriptions.push(txt);
+            transcriptions.push({url: thisRec.RecordingUrl, text: txt});
 
             redis.rpush('transcripchain:transcriptions', JSON.stringify({
                 recording: thisRec,
